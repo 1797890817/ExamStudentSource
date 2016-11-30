@@ -63,7 +63,6 @@ function tableStyle() {
  * 数组必须初始化，否则无法识别
  * @returns
  */
-var flag=false;							//设置一个flag，防止重复添加统计行和列
 function count() {
 	/*var row = [];
 	var col = [];
@@ -81,9 +80,9 @@ function count() {
 			col[i] += i * j;
 		}
 	}*/
-	var s=$('#lastTr');
-	if(flag==false){								//根据flag判断是否添加统计行和列
-	$('table').append("<tr id='lastTr'>");			//先在table最后添加一行
+	var lastTr=$('#lastTr');
+	if(lastTr[0]==null)	{						//根据lastTr的长度判断是否添加统计行和列，如果长度为0则没有添加过
+	$('table').append("<tr id='lastTr'>");			//先在table最后添加一行,添加一个id作为标记
 	for (var k = 1; k < 10; k++) {
 		/*
 		 * $('tr:eq('+(k-1)+')').append("<td>"+row[k]+"</td>");
@@ -93,8 +92,8 @@ function count() {
 		$('tr:last').append("<td>" + col1[k] + "</td>");		//在最后一行中添加每一列的总和
 	}
 	$('tr:last').append("<td>&nbsp;</td></tr>");     //封闭最后一行
-	flag=true;									//添加个统计就改变flag
-	}else {
+									//添加个统计就改变flag
+	}else{
 		window.alert('已经添加过统计！');
 	}
 }
@@ -105,7 +104,7 @@ function count() {
 var row1 = [ ];
 var col1 = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];  		//初始化列的数组
 function multiplyTable() {
-	var str = "<br/><table><caption>九九乘法口诀表</caption>";		//定义一个字符串保存乘法口诀表
+	var str = "<br/><table id='table1'><caption>九九乘法口诀表</caption>";		//定义一个字符串保存乘法口诀表
 	for (var i = 1; i < 10; i++) {
 		row1[i] = 0;							//初始化行的数组
 		str += "<tr>";
